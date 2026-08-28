@@ -1,38 +1,87 @@
-# A robust federated learning
-Some experiment code refer from https://github.com/amitport/Towards-Federated-Learning-with-Byzantine-Robust-Client-Weighting
+# Robust Aggregation for Federated Learning by Minimum γ-Divergence Estimation
 
-The server aggregator is `numpy` code, which computes by cpu, and we find that the computation seems large.
-However, cupy and tf.tensor is not as convinient as numpy. 
+Official implementation of the **γ-mean robust aggregator** for Byzantine-resilient federated learning.
 
-The aggregator can be easily applied to Nvidia's NVFlare and Clara train which are developed for real federated learning system.
-  
-Preprint article: please see the file `paper_entropy.pdf`.  
-Author: Cen-Jhih Li  
-Belongs: Academia Sinica, Institute of Statistical Science, Robust federated learning project
-# Datasets: 
+**Paper:**  
+Cen-Jhih Li, Pin-Han Huang, Yi-Ting Ma, Hung Hung, and Su-Yun Huang.  
+"Robust Aggregation for Federated Learning by Minimum γ-Divergence Estimation."  
+*Entropy*, 24(5):686, 2022.  
+DOI: 10.3390/e24050686
 
-Including emnist, mnist, fashion_MNIST, chest xray data. 
-# Build environment
-see `build_env.txt`  
+## Overview
 
-Ubundu 16, 18, and 20 should all be fine  
+The **γ-mean** is a robust aggregation method derived from minimum γ-divergence estimation. It downweights outlying client updates and is designed to tolerate Byzantine clients in federated learning.
 
-remove the EMNIST part in the code and no need to install tensorflow-federated if not using EMNIST  
-# Training
+The simple γ-mean is computationally lightweight and suitable for high-dimensional neural-network updates. The aggregation procedure is implemented in NumPy and can be used as a drop-in robust alternative to standard averaging in federated learning experiments.
 
-Using the command in `cmd_run.txt` to implement the experiments. 
-# Python scripts
+Parts of the experimental setup were adapted from:
+https://github.com/amitport/Towards-Federated-Learning-with-Byzantine-Robust-Client-Weighting
 
-main script (run experiments): `run_experiment.py`  
-experiment functions (include loading previous training results) are in: `./util/experiment_runner.py`  
-server class (include server training procedure) defined in: `./util/server.py`  
-client class (include client training procedure) defined in: `./util/client.py`  
-neural network model defined in: `./util/model.py`  
-datasets functions in folder: `./prepare_data/`  
-(Pneumonia dataset provided by: https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia
- not provide in this github project)
+## Datasets
 
-# Results
+The experiments include:
 
-After the experiments are done, execute `mnist_results_plots.ipynb` using Jupyter notebook.  
-Our simulation and experiments results are in `aggregators_simulation.ipynb` and `mnist_results_plots.ipynb`.   
+- MNIST
+- Fashion-MNIST
+- EMNIST
+- Chest X-ray
+
+The pneumonia chest X-ray dataset is not included in this repository and can be obtained from the original Kaggle dataset.
+
+## Environment
+
+Environment information is provided in:
+
+`build_env.txt`
+
+The experiments were developed and tested on Ubuntu 16.04, 18.04, and 20.04.
+
+TensorFlow Federated is only required for the EMNIST experiments.
+
+## Running the Experiments
+
+Example commands for reproducing the experiments are provided in:
+
+`cmd_run.txt`
+
+The main experiment script is:
+
+`run_experiment.py`
+
+## Repository Structure
+
+- `run_experiment.py` — main experiment script
+- `util/experiment_runner.py` — experiment utilities and loading of previous results
+- `util/server.py` — server and aggregation procedures
+- `util/client.py` — federated client implementation
+- `util/model.py` — neural-network models
+- `prepare_data/` — dataset preparation utilities
+- `aggregators_simulation.ipynb` — simulations of robust aggregation methods
+- `mnist_results_plots.ipynb` — experiment analysis and result visualization
+- `paper_entropy.pdf` — paper manuscript
+
+## Results
+
+Simulation results and federated-learning experiments are provided in:
+
+- `aggregators_simulation.ipynb`
+- `mnist_results_plots.ipynb`
+
+After running the experiments, use `mnist_results_plots.ipynb` to reproduce the result plots.
+
+## Citation
+
+If you use this code or the γ-mean aggregator in your research, please cite:
+
+```bibtex
+@article{li2022robust,
+  title={Robust aggregation for federated learning by minimum $\gamma$-divergence estimation},
+  author={Li, Cen-Jhih and Huang, Pin-Han and Ma, Yi-Ting and Hung, Hung and Huang, Su-Yun},
+  journal={Entropy},
+  volume={24},
+  number={5},
+  pages={686},
+  year={2022},
+  publisher={MDPI}
+  doi={10.3390/e24050686}
+}

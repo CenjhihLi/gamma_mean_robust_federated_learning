@@ -82,6 +82,6 @@ If you use this code or the γ-mean aggregator in your research, please cite:
   number={5},
   pages={686},
   year={2022},
-  publisher={MDPI}
+  publisher={MDPI},
   doi={10.3390/e24050686}
 }
